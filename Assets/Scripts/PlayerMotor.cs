@@ -7,7 +7,8 @@ public class PlayerMotor : MonoBehaviour {
 
     private Vector3 velocity = Vector3.zero;
     private Vector3 rotation = Vector3.zero;
-    private Vector3 camRotation = Vector3.zero;
+    private float camRotation = 0f;
+    private float currentCamRotation = 0f;
     private Rigidbody rb;
     private Vector3 thrusterForce = Vector3.zero;
 
@@ -64,13 +65,16 @@ public class PlayerMotor : MonoBehaviour {
         rb.MoveRotation(rb.rotation * Quaternion.Euler(rotation));
         if(cam != null)
         {
-            cam.transform.Rotate(camRotation);
+            currentCamRotation -= camRotation;
+            currentCamRotation = Mathf.Clamp(currentCamRotation, -65, 65);
+
+            cam.transform.localEulerAngles = new Vector3(currentCamRotation, 0f, 0f);
         }
         
     }
 
     //Takes CameraRotation vector
-    public void CamRotate(Vector3 _camRotation)
+    public void CamRotate(float _camRotation)
     {
         camRotation = _camRotation;
     }

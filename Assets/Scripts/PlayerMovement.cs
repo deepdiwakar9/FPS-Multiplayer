@@ -54,19 +54,17 @@ public class PlayerMovement : MonoBehaviour {
 
         //Calculate PlayerRotation along yaxis
         float yRot = Input.GetAxisRaw("Mouse X");
-
+        
         Vector3 _rotation = new Vector3(0, yRot, 0) * mouseSentivity;
 
         //Apply Rotation
         motor.Rotate(_rotation);
 
         //Calculate CameraRotation along xaxis
-        float xRot = Input.GetAxisRaw("Mouse Y");
-
-        Vector3 _camRotation = new Vector3(-xRot, 0, 0) * mouseSentivity;
+        float xRot = Input.GetAxisRaw("Mouse Y") * mouseSentivity;
 
         //Apply CameraRotaion
-        motor.CamRotate(_camRotation);
+        motor.CamRotate(xRot);
 
         //Thruster Force
         Vector3 _thrusterForce = Vector3.zero;
